@@ -64,7 +64,7 @@ def create_lexicon(pos_file, neg_file):
     # 去掉一些常用词,像the,a and等等，和一些不常用词; 这些词对判断一个评论是正面还是负面没有做任何贡献
     lex = []
     for word in word_count:
-        if word_count[word] < 2000 and word_count[word] > 20:
+        if word_count[word] < 2000 and word_count[word] > 10:
             lex.append(word)
 
     return lex
@@ -149,11 +149,11 @@ test_dataset = dataset[-test_size:]
 n_input_layer = len(lex)
 
 # 第一层 hide layer
-n_layer_1 = 1000
+n_layer_1 = 2000
 # 第二层 hide layer
-n_layer_2 = 1000
+n_layer_2 = 2000
 # 第三层 hide layer
-n_layer_3 = 128
+n_layer_3 = 2000
 
 # 输出层
 n_output_layer = 2
@@ -209,6 +209,8 @@ def train_neural_network(X, Y):
         random.shuffle(train_dataset)
         train_x = train_dataset[:, 0]
         train_y = train_dataset[:, 1]
+        # train_x = dataset[:, 0]
+        # train_y = dataset[:, 1]
 
         for epoch in range(epochs):
             while i < len(train_x):
